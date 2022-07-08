@@ -1,0 +1,35 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int main() {
+	int N, M;
+	cin >> N >> M;
+	int a[10010], b[10010], tmp[10010];	//a是始点，b是终点，tmp用来判断是否被删除
+	for (int i = 1; i <= M; i++) 
+		cin >> a[i] >> b[i];
+	int K;
+	cin >> K;
+	int Np, x, flag;
+	while (K--) {
+		//初始化tmp置零,0表示未被删除
+		for (int i = 0; i < 10010; i++)
+            tmp[i] = 0; //sizeof不能用，会出现段错误
+		flag = 1;
+		cin >> Np;//该方案中计划攻下的城池数量
+		for (int i = 1; i <= Np; i++) {
+			cin >> x;//计划攻下的城池
+			tmp[x] = -1;//tmp为-1，代表这个点被删除
+		}
+		for (int i = 1; i <= M; i++) {
+			if (tmp[a[i]] == 0 && tmp[b[i]] == 0) {	
+                //tmp为0代表这个点没有被删除，若始点和终点都没被删除说明这条路还在
+				flag = 0;
+				break;
+			}
+		}
+		if (flag)
+			cout << "YES" << endl;
+		else
+			cout << "NO" << endl;
+	}
+}
